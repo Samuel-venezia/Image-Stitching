@@ -13,7 +13,7 @@ if __name__ == "__main__":
     # stage_1 = ["BRISK"]
     stage_2 = ["SIFT", "BRISK", "AKAZE", "ORB", "FREAK"]
     stage_3 = ["BF", "BF KNN"]
-    stage_4 = ["RANSAC"]
+    stage_4 = ["RANSAC", "USAC"]
     approaches = []
 
     for s_4 in stage_4:
@@ -29,13 +29,11 @@ if __name__ == "__main__":
     # approaches = [approaches[34]]
     # approaches = [""]
     # approaches = approaches[33:41]
-    stitched_pipelines = ["AKAZE-SIFT-BF KNN-RANSAC", "AKAZE-FREAK-BF-RANSAC", "AKAZE-BRISK-BF-RANSAC", "AKAZE-SIFT-BF KNN-USAC", "AKAZE-SIFT-BF-USAC", "SIFT-SIFT-BF KNN-USAC"]  #
+    # stitched_pipelines = ["AKAZE-SIFT-BF KNN-RANSAC", "AKAZE-FREAK-BF-RANSAC", "AKAZE-BRISK-BF-RANSAC", "AKAZE-SIFT-BF KNN-USAC", "AKAZE-SIFT-BF-USAC", "SIFT-SIFT-BF KNN-USAC"]  #
     # stitched_pipelines = ["AKAZE-FREAK-BF-USAC"]  #
-    stitched_pipelines = list({"SIFT-SIFT-BF-RANSAC", "AKAZE-BRISK-BF-RANSAC",
-                "BRISK-SIFT-BF KNN-RANSAC", "AKAZE-SIFT-BF KNN-RANSAC", "BRISK-BRISK-BF KNN-RANSAC",
-                "AKAZE-BRISK-BF-USAC", "SIFT-SIFT-BF KNN-USAC", "AKAZE-SIFT-BF KNN-USAC"})
-    stitched_pipelines = ["SIFT-SIFT-BF-RANSAC"]
-    stitched_pipelines = ["AKAZE-BRISK-BF-RANSAC"]
+    # stitched_pipelines = list({"SIFT-SIFT-BF-RANSAC", "AKAZE-BRISK-BF-RANSAC", "BRISK-SIFT-BF KNN-RANSAC", "AKAZE-SIFT-BF KNN-RANSAC", "BRISK-BRISK-BF KNN-RANSAC", "AKAZE-BRISK-BF-USAC", "SIFT-SIFT-BF KNN-USAC", "AKAZE-SIFT-BF KNN-USAC"})
+    # stitched_pipelines = ["SIFT-SIFT-BF-RANSAC"]
+    # stitched_pipelines = ["AKAZE-BRISK-BF-RANSAC"]
     # GH
     # "SIFT-SIFT-BF-RANSAC", "BRISK-SIFT-BF-RANSAC", "BRISK-BRISK-BF-RANSAC", "AKAZE-BRISK-BF-RANSAC",
     #                 "SIFT-SIFT-BF KNN-RANSAC", "AKAZE-SIFT-BF KNN-RANSAC", "BRISK-BRISK-BF KNN-RANSAC",
