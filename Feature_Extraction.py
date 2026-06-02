@@ -90,7 +90,8 @@ class Detectors:
     def brisk(self, params=None):
         if params is None:
             # default_params = {"det_thresh": 30, "octaves": 3, "pattern_sample": 1.0}
-            params = {"det_thresh": 60, "octaves": 6, "pattern_sample": 2.5}
+            # params = {"det_thresh": 60, "octaves": 6, "pattern_sample": 2.5}
+            params = {"det_thresh": 30, "octaves": 3, "pattern_sample": 1.5}
         brisk = cv.BRISK_create(thresh=params["det_thresh"], octaves=params["octaves"], patternScale=params["pattern_sample"])
         for image in self.__images:
             self.__keypoints.append(brisk.detect(image, None))
@@ -393,6 +394,7 @@ class Pipeline(Images):
     def __init__(self, image_1, image_2):
         self.__key_points, self.__descriptors, self.__matches, self.__warped, self.__stitched = None, None, None, None, None
         self.__homography_est = None
+        self.__descriptor_chosen = ""
         self.__duration = 0.0
         super().__init__(image_1, image_2)
 
@@ -428,10 +430,15 @@ class Pipeline(Images):
         else:
             descriptor.sift()
         # self.__duration += datetime.datetime.now() - timer_start
+        self.__descriptor_chosen = algorithm_chosen
         self.__descriptors = descriptor.get_descriptors()
 
     def stage_3(self, algorithm_chosen="BF", matching_vis=False):
         matched_pairs = Matching(self.get_images_gray(), self.__key_points, self.__descriptors)
+
+        distance = cv.NORM_HAMMING
+        if self.__descriptor_chosen == "SIFT":
+            distance = cv.NORM_L1
         timer_start = datetime.datetime.now()
 
         if algorithm_chosen == "BF KNN":
@@ -439,7 +446,7 @@ class Pipeline(Images):
         elif algorithm_chosen == "FLANN":
             matched_pairs.flann()
         else:
-            matched_pairs.brute_force(visualise=matching_vis)
+            matched_pairs.brute_force(visualise=matching_vis, batch_distance=distance)
         # self.__duration += datetime.datetime.now() - timer_start
         if matching_vis:
             cv.imwrite("figures/visualisation_matching.png",matched_pairs.get_visual_matches())
